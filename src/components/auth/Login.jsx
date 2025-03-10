@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { loginUser } from "../../services/api";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -56,7 +56,7 @@ const Login = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="password">Slapta=odis</label>
+          <label htmlFor="password">Slaptažodis</label>
           <input
             type="password"
             id="password"

@@ -54,7 +54,7 @@ const Register = () => {
   return (
     <div className="register-container">
       <h2>Registracija</h2>
-      {error && <div className="error">{error}</div>}
+      {error && <div className="error-message">{error}</div>}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="username">Vartotojo vardas</label>

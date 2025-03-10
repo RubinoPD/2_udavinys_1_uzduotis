@@ -13,8 +13,8 @@ function App() {
     <AuthProvider>
       <Router>
         <Navbar />
-        <Routes>
-          <div className="app-container">
+        <div className="app-container">
+          <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
@@ -25,9 +25,9 @@ function App() {
                   <DashboardPage />
                 </ProtectedRoute>
               }
-            ></Route>
-          </div>
-        </Routes>
+            />
+          </Routes>
+        </div>
       </Router>
     </AuthProvider>
   );
