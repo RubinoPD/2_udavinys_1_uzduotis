@@ -17,7 +17,17 @@
     {
       "userId": 1,
       "recipeId": 1,
-      "id": 1
+      "id": "1"
+    },
+    {
+      "id": "a4c7",
+      "userId": "4928",
+      "recipeId": 1
+    },
+    {
+      "id": "61ff",
+      "userId": "4928",
+      "recipeId": 2
     }
   ]
 }

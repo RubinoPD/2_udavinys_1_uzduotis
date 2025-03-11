@@ -7,6 +7,7 @@ const DUMMY_JSON_API = "https://dummyjson.com/recipes";
 export const getRecipes = async () => {
   try {
     const response = await axios.get(DUMMY_JSON_API);
+    console.log("Raw API response:", response.data);
     return response.data;
   } catch (error) {
     throw error.response?.data || error.message || "Failed to fetch recipes";
@@ -23,7 +24,7 @@ export const getRecipeById = async (id) => {
   }
 };
 
-// Get users's favorite recipes
+// Get user's favorite recipes
 export const getFavorites = async (userId) => {
   try {
     const response = await axios.get(`${API_URL}/favorites?userId=${userId}`);
@@ -33,33 +34,34 @@ export const getFavorites = async (userId) => {
   }
 };
 
-// Add recipe to favorites
+// Add a recipe to favorites
 export const addToFavorites = async (userId, recipeId) => {
   try {
-    // Check if recipe is already in favorites
+    // Check if already a favorite
     const existingFav = await axios.get(
-      `${API_URL}/favorites?userId=${userId}&recipeID=${recipeId}`
+      `${API_URL}/favorites?userId=${userId}&recipeId=${recipeId}`
     );
 
     if (existingFav.data.length > 0) {
-      return existingFav.data[0]; // Already exists
+      return existingFav.data[0]; // Already a favorite
     }
 
-    // Add to favorites
+    // Add new favorite
     const response = await axios.post(`${API_URL}/favorites`, {
       userId,
       recipeId,
     });
+
     return response.data;
   } catch (error) {
     throw error.response?.data || error.message || "Failed to add to favorites";
   }
 };
 
-// Remove recipe from favorites
+// Remove a recipe from favorites
 export const removeFromFavorites = async (favoriteId) => {
   try {
-    await axios.get(`${API_URL}/favorites/${favoriteId}`);
+    await axios.delete(`${API_URL}/favorites/${favoriteId}`);
     return true;
   } catch (error) {
     throw (
@@ -68,7 +70,7 @@ export const removeFromFavorites = async (favoriteId) => {
   }
 };
 
-// Check if a a recipe is in favorites
+// Check if a recipe is a favorite
 export const isFavorite = async (userId, recipeId) => {
   try {
     const response = await axios.get(
@@ -77,9 +79,7 @@ export const isFavorite = async (userId, recipeId) => {
     return response.data.length > 0 ? response.data[0] : null;
   } catch (error) {
     throw (
-      error.response?.data ||
-      error.message ||
-      "Failed to check favorites status"
+      error.response?.data || error.message || "Failed to check favorite status"
     );
   }
 };

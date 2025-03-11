@@ -27,14 +27,16 @@ const RecipeDetail = () => {
         // Check if recipe is a favorite
         const favStatus = await isFavorite(user.id, parseInt(id));
         setFavorite(favStatus);
+
         setError(null);
-      } catch (error) {
+      } catch (err) {
         setError("Failed to load recipe. Please try again later.");
-        console.error(error);
+        console.error(err);
       } finally {
         setLoading(false);
       }
     };
+
     fetchRecipe();
   }, [id, user.id]);
 
@@ -64,14 +66,15 @@ const RecipeDetail = () => {
   }
 
   if (!recipe) {
-    return <div className="error-message">Recipe not found</div>;
+    return <div className="error-message">Recipe not found.</div>;
   }
 
   return (
     <div className="recipe-detail-container">
       <Link to="/recipes" className="back-link">
-        ← Back to Recipes{" "}
+        ← Back to Recipes
       </Link>
+
       <div className="recipe-header">
         <h1>{recipe.name}</h1>
         <button
@@ -86,26 +89,36 @@ const RecipeDetail = () => {
       <div className="recipe-detail-grid">
         <div className="recipe-image-container">
           <img
-            src={recipe.image}
+            src={
+              recipe.image ||
+              `https://via.placeholder.com/400x300?text=${encodeURIComponent(
+                recipe.name
+              )}`
+            }
             alt={recipe.name}
             className="recipe-detail-image"
           />
+
           <div className="recipe-meta-info">
             <div className="meta-item">
               <span className="meta-label">Cuisine:</span>
-              <span className="meta-label">{recipe.cuisine}</span>
+              <span className="meta-value">{recipe.cuisine}</span>
             </div>
             <div className="meta-item">
               <span className="meta-label">Cook Time:</span>
-              <span className="meta-label">{recipe.cookTimeMinutes}</span>
+              <span className="meta-value">
+                {recipe.cookTimeMinutes} minutes
+              </span>
             </div>
             <div className="meta-item">
               <span className="meta-label">Servings:</span>
-              <span className="meta-label">{recipe.servings}</span>
+              <span className="meta-value">{recipe.servings}</span>
             </div>
             <div className="meta-item">
               <span className="meta-label">Calories:</span>
-              <span className="meta-label">{recipe.caloriesPerServing}</span>
+              <span className="meta-value">
+                {recipe.caloriesPerServing} per serving
+              </span>
             </div>
           </div>
         </div>
@@ -113,8 +126,16 @@ const RecipeDetail = () => {
         <div className="recipe-content">
           <div className="recipe-section">
             <h2>Description</h2>
-            <p>{recipe.description}</p>
+            <p>
+              {recipe.description ||
+                `A delicious ${
+                  recipe.cuisine || ""
+                } recipe that combines ${recipe.ingredients
+                  ?.slice(0, 3)
+                  .join(", ")} for a flavorful meal.`}
+            </p>
           </div>
+
           <div className="recipe-section">
             <h2>Ingredients</h2>
             <ul className="ingredients-list">
@@ -137,8 +158,10 @@ const RecipeDetail = () => {
             <div className="recipe-tags">
               <h3>Tags:</h3>
               <div className="tags-container">
-                {recipe.tags.map((tag) => (
-                  <span key={index}>{tag}</span>
+                {recipe.tags.map((tag, index) => (
+                  <span key={index} className="tag">
+                    {tag}
+                  </span>
                 ))}
               </div>
             </div>

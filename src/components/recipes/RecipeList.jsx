@@ -14,11 +14,17 @@ const RecipeList = () => {
       try {
         setLoading(true);
         const data = await getRecipes();
-        setRecipes(data);
+        // API returns { recipes: [...], total: 50, skip: 0, limit: 30 }
+        if (data && data.recipes && Array.isArray(data.recipes)) {
+          setRecipes(data.recipes);
+        } else {
+          setError("Unexpected data format from API");
+          console.error("Unexpected data format:", data);
+        }
         setError(null);
-      } catch (error) {
+      } catch (err) {
         setError("Failed to load recipes. Please try again later.");
-        console.error(error);
+        console.error(err);
       } finally {
         setLoading(false);
       }
@@ -58,8 +64,9 @@ const RecipeList = () => {
   return (
     <div className="recipe-list-container">
       <h2>Discover Recipes</h2>
+
       {recipes.length === 0 ? (
-        <p>No Recipes found</p>
+        <p>No recipes found.</p>
       ) : (
         <>
           <div className="recipe-list">

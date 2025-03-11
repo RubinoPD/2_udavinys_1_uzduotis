@@ -18,7 +18,7 @@ const RecipeCard = ({ recipe }) => {
         const status = await isFavorite(user.id, recipe.id);
         setFavorite(status);
       } catch (error) {
-        console.log("Error checking favorite status:", error);
+        console.error("Error checking favorite status:", error);
       }
     };
 
@@ -45,13 +45,25 @@ const RecipeCard = ({ recipe }) => {
   return (
     <div className="recipe-card">
       <div className="recipe-card-image">
-        <img src={recipe.img} alt={recipe.name} />
+        <img
+          src={
+            recipe.image ||
+            `https://via.placeholder.com/180x180?text=${encodeURIComponent(
+              recipe.name
+            )}`
+          }
+          alt={recipe.name}
+        />
       </div>
-      <div className="recipe-card-container">
+      <div className="recipe-card-content">
         <h3>{recipe.name}</h3>
-        <p className="recipe-cuisine">{recipe.cuisine}</p>
+        <p className="recipe-cuisine">{recipe.cuisine || "Various"}</p>
         <p className="recipe-description">
-          {recipe.description.substring(0, 100)}...
+          {recipe.description
+            ? recipe.description.substring(0, 100) + "..."
+            : `${recipe.name} with ${recipe.ingredients
+                ?.slice(0, 3)
+                .join(", ")}...`}
         </p>
         <div className="recipe-meta">
           <span>⏱️ {recipe.cookTimeMinutes} min</span>
