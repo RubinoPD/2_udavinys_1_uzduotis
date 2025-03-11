@@ -12,5 +12,12 @@
       "email": "robertas@example.com",
       "password": "password123"
     }
+  ],
+  "favorites": [
+    {
+      "userId": 1,
+      "recipeId": 1,
+      "id": 1
+    }
   ]
 }
