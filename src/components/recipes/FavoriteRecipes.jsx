@@ -53,6 +53,8 @@ const FavoriteRecipes = () => {
         setLoading(false);
       }
     };
+
+    fetchFavorites();
   }, [user.id]);
 
   const handleRemoveFavorite = async (favoriteId, recipeId) => {
