@@ -25,6 +25,12 @@ const Navbar = () => {
               <Link to="/dashboard">Valdymo Skydelis</Link>
             </li>
             <li>
+              <Link to="/recipes">Receptai</Link>
+            </li>
+            <li>
+              <Link to="/favorites">Mėgstamiausi</Link>
+            </li>
+            <li>
               <span className="user-greeting">Sveiki, {user.username}!</span>
             </li>
             <li>
