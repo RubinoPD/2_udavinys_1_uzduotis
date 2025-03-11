@@ -6,6 +6,9 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import DashboardPage from "./pages/DashboardPage";
+import RecipesPage from "./pages/RecipesPage";
+import RecipeDetailPage from "./pages/RecipeDetailPage";
+import FavoritesPage from "./pages/FavoritesPage";
 import "./App.css";
 
 function App() {
@@ -23,6 +26,30 @@ function App() {
               element={
                 <ProtectedRoute>
                   <DashboardPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/recipes"
+              element={
+                <ProtectedRoute>
+                  <RecipesPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/recipe/:id"
+              element={
+                <ProtectedRoute>
+                  <RecipeDetailPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/favorites"
+              element={
+                <ProtectedRoute>
+                  <FavoritesPage />
                 </ProtectedRoute>
               }
             />
