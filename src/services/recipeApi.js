@@ -7,7 +7,6 @@ const DUMMY_JSON_API = "https://dummyjson.com/recipes";
 export const getRecipes = async () => {
   try {
     const response = await axios.get(DUMMY_JSON_API);
-    console.log("Raw API response:", response.data);
     return response.data;
   } catch (error) {
     throw error.response?.data || error.message || "Failed to fetch recipes";

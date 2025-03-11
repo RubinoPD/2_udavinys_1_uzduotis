@@ -21,7 +21,7 @@ const Dashboard = () => {
           <span className="action-icon">🍳</span>
         </Link>
 
-        <Link t="/favorites" className="dashboard-action-card">
+        <Link to="/favorites" className="dashboard-action-card">
           <h4>Mėgstamiausi Receptai</h4>
           <p>Peržiūrėkite savo išsaugotus receptus</p>
           <span className="action-icon">❤️</span>

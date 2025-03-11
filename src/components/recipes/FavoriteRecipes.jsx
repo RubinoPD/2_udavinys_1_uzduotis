@@ -23,11 +23,12 @@ const FavoriteRecipes = () => {
 
         // Fetch details for each favorite recipe
         const recipePromises = favoritesData.map((fav) =>
-          getRecipeById(fav.recipeId).catch((error) => {
-            console.error(`Failed to fetch recipe ${fav.recipeId}:`, error);
+          getRecipeById(fav.recipeId).catch((err) => {
+            console.error(`Failed to fetch recipe ${fav.recipeId}:`, err);
             return null;
           })
         );
+
         const recipeResults = await Promise.all(recipePromises);
 
         // Filter out any null results (failed fetches)
@@ -46,9 +47,9 @@ const FavoriteRecipes = () => {
 
         setRecipes(recipesWithFavId);
         setError(null);
-      } catch (error) {
+      } catch (err) {
         setError("Failed to load favorite recipes. Please try again later.");
-        console.error(error);
+        console.error(err);
       } finally {
         setLoading(false);
       }
@@ -93,13 +94,25 @@ const FavoriteRecipes = () => {
           {recipes.map((recipe) => (
             <div key={recipe.id} className="recipe-card">
               <div className="recipe-card-image">
-                <img src={recipe.image} alt={recipe.name} />
+                <img
+                  src={
+                    recipe.image ||
+                    `https://via.placeholder.com/180x180?text=${encodeURIComponent(
+                      recipe.name
+                    )}`
+                  }
+                  alt={recipe.name}
+                />
               </div>
               <div className="recipe-card-content">
                 <h3>{recipe.name}</h3>
-                <p className="recipe-cuisin">{recipe.cuisine}</p>
+                <p className="recipe-cuisine">{recipe.cuisine || "Various"}</p>
                 <p className="recipe-description">
-                  {recipe.description.substring(0, 100)}...
+                  {recipe.description
+                    ? recipe.description.substring(0, 100) + "..."
+                    : `${recipe.name} with ${recipe.ingredients
+                        ?.slice(0, 3)
+                        .join(", ")}...`}
                 </p>
                 <div className="recipe-meta">
                   <span>⏱️ {recipe.cookTimeMinutes} min</span>
